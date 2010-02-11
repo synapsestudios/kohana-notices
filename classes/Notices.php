@@ -120,9 +120,13 @@ class Notices
 	{
 		// Prepare the type argument
 		if (is_string($type))
+		{
 			$type = array($type);
+		}
 		if ( ! is_array($type))
+		{
 			$type = NULL;
+		}
 
 		// Find notices that match the arguments
 		$results = array();
@@ -133,7 +137,9 @@ class Notices
 			$persistence_state_matches = is_bool($persistent) ? ($persistent == $notice->is_persistent) : TRUE;
 
 			if ($type_matches AND $render_state_matches AND $persistence_state_matches)
+			{
 				$results[] = $notice;
+			}
 		}
 
 		return $results;
