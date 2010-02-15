@@ -1,0 +1,31 @@
+div.notice {
+	background: #eef;
+	border: 2px solid #00a;
+	font-family: "Helvetica Neue", "Trebuchet MS", Helvetica, Verdana, Arial, sans-serif;
+	color: #004;
+	font-size: 16px;
+	line-height: 1.5em;
+	margin: 4px 8px 6px 8px;
+	padding: 12px;
+	text-align: left;
+	width: auto;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+div.notice div.notice-image {
+	float: left;
+	height: 32px;
+}
+
+div.notice div.notice-content {
+	margin: 6px 0 0 42px;
+}
+
+div.notice strong.notice-type {
+	color: #00a;
+	font-size: 18px;
+	font-weight: bold;
+	padding-right: 12px;
+	text-transform: uppercase;
+}

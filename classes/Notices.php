@@ -12,13 +12,15 @@ class Notices
 	const UNIQUE_PREFIX = 'unique_';
 
 	/**
+	 * The queue of notices to be rendered and displayed
 	 *
 	 * @var		array
 	 */
 	protected static $notices = array();
 
 	/**
-	 *
+	 * Retrieves the notices form the session and stores them in the static
+	 * notices array. It also clears notices that have already been rendered.
 	 */
 	public static function init()
 	{
@@ -39,7 +41,7 @@ class Notices
 	}
 
 	/**
-	 *
+	 * Saves the current notices to the session
 	 */
 	public static function save()
 	{
@@ -48,6 +50,7 @@ class Notices
 	}
 
 	/**
+	 * Adds a new notice to the notices queue
 	 *
 	 * @param	string	$type
 	 * @param	string	$message
@@ -69,13 +72,14 @@ class Notices
 	}
 
 	/**
+	 * Adds a new unique notice to the notices queue
 	 *
 	 * @param	string	$type
 	 * @param	string	$message
 	 * @param	boolean	$persistent
 	 * @return	Notice
 	 */
-	public function add_unique($type, $message, $persistent = FALSE)
+	public static function add_unique($type, $message, $persistent = FALSE)
 	{
 		try
 		{
@@ -97,6 +101,7 @@ class Notices
 	}
 
 	/**
+	 * Retrieves a particular notice by its hash
 	 *
 	 * @param	string	$hash
 	 * @return	mixed
@@ -110,6 +115,7 @@ class Notices
 	}
 
 	/**
+	 * Retrieves a set of notices based on type, rendered state, and persistence
 	 *
 	 * @param	mixed	$type
 	 * @param	boolean	$rendered
@@ -119,14 +125,7 @@ class Notices
 	public static function get_all($type = NULL, $rendered = NULL, $persistent = NULL)
 	{
 		// Prepare the type argument
-		if (is_string($type))
-		{
-			$type = array($type);
-		}
-		if ( ! is_array($type))
-		{
-			$type = NULL;
-		}
+		$type = (is_string($type) OR is_array($type)) ? (array) $type : NULL;
 
 		// Find notices that match the arguments
 		$results = array();
@@ -146,6 +145,7 @@ class Notices
 	}
 
 	/**
+	 * Clear (unset) a set of notices  (Defaults to all non-persistent, rendered notices)
 	 *
 	 * @param	mixed	$type
 	 * @param	boolean	$rendered
@@ -153,7 +153,6 @@ class Notices
 	 */
 	public static function clear($type = NULL, $rendered = TRUE, $persistent = FALSE)
 	{
-		// Unset the matching notices (Defaults to non-persistent, rendered notices)
 		foreach (self::get_all($type, $rendered, $persistent) as $notice)
 		{
 			unset(self::$notices[$notice->hash]);
@@ -163,6 +162,7 @@ class Notices
 	}
 
 	/**
+	 * Count a set of notices (Defaults to all non-rendered notices)
 	 *
 	 * @param	mixed	$type
 	 * @param	boolean	$rendered
@@ -171,11 +171,11 @@ class Notices
 	 */
 	public static function count($type = NULL, $rendered = FALSE, $persistent = FALSE)
 	{
-		// Count the number of matching notices (Defaults to all non-rendered notices)
 		return count(self::get_all($type, $rendered));
 	}
 
 	/**
+	 * Display a set of notices (Defaults to all non-rendered notices)
 	 *
 	 * @param	mixed	$type
 	 * @param	boolean	$rendered
@@ -184,7 +184,6 @@ class Notices
 	 */
 	public static function display($type = NULL, $rendered = FALSE, $persistent = NULL)
 	{
-		// Render the matching notices (Defaults to all non-rendered notices)
 		$html = '';
 		foreach (self::get_all($type, $rendered, $persistent) as $notice)
 		{
@@ -196,6 +195,8 @@ class Notices
 	}
 
 	/**
+	 * __callStatic allows the creation of notices using the shorter
+	 * syntax: Notices::success('message');
 	 *
 	 * @param	string	$method
 	 * @param	array	$args

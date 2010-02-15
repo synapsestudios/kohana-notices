@@ -11,24 +11,28 @@ class Notice
 {
 	/**
 	 * A unique indentifying hash
+	 *
 	 * @var		string
 	 */
 	protected $hash = NULL;
 
 	/**
 	 * The notice type used for css styling
+	 *
 	 * @var		string
 	 */
 	protected $type = 'notice';
 
 	/**
 	 * The content of the notice
+	 *
 	 * @var		string
 	 */
 	protected $message = '';
 
 	/**
 	 * Whether or not the notice is persistent
+	 * 
 	 * @var		boolean
 	 */
 	protected $is_persistent = FALSE;
@@ -46,6 +50,7 @@ class Notice
 	protected $microtime = 0;
 
 	/**
+	 * Creates a notice
 	 *
 	 * @param	string	$type
 	 * @param	string	$message
@@ -67,6 +72,7 @@ class Notice
 	}
 
 	/**
+	 * Renders a notice
 	 *
 	 * @return	string
 	 */
@@ -79,6 +85,7 @@ class Notice
 	}
 
 	/**
+	 * Gets the property of a notice
 	 *
 	 * @param	string	$key
 	 * @return	mixed
@@ -89,6 +96,7 @@ class Notice
 	}
 
 	/**
+	 * Returns the rendered notice
 	 *
 	 * @return	string
 	 */
@@ -98,7 +106,7 @@ class Notice
 	}
 
 	/**
-	 *
+	 * Removes the persitence of a notice
 	 */
 	public function remove_persistence()
 	{
@@ -106,6 +114,7 @@ class Notice
 	}
 
 	/**
+	 * Sets the state to either rendered or not-rendered
 	 *
 	 * @param	boolean	$state
 	 */
@@ -116,6 +125,7 @@ class Notice
 	}
 
 	/**
+	 * Checks if two notices have the same type and message
 	 *
 	 * @param	Notice	$notice
 	 * @return	boolean
@@ -128,6 +138,7 @@ class Notice
 	}
 
 	/**
+	 * Returns the 8-character CRC hash identifying a notice
 	 *
 	 * @param	string	$string
 	 * @return	string

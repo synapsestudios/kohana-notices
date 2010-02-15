@@ -10,6 +10,7 @@
 class Notice_Unique extends Notice
 {
 	/**
+	 * Creates a notice and ensures the type/message combo is unique
 	 *
 	 * @param	string	$type
 	 * @param	string	$message
