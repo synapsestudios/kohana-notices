@@ -3,7 +3,7 @@
  * Notices
  *
  * @package    Notices
- * @version    v2.0.0b
+ * @version    v2.0.0
  * @author     Jeremy Lindblom <jeremy@synapsestudios.com>
  * @copyright  Copyright (c) 2009 Synapse Studios
  */
@@ -145,7 +145,8 @@ class Notices
 	}
 
 	/**
-	 * Clear (unset) a set of notices  (Defaults to all non-persistent, rendered notices)
+	 * Clear (unset) a set of notices (Defaults to all non-persistent,
+	 * rendered notices)
 	 *
 	 * @param	mixed	$type
 	 * @param	boolean	$rendered
@@ -195,8 +196,8 @@ class Notices
 	}
 
 	/**
-	 * __callStatic allows the creation of notices using the shorter
-	 * syntax: Notices::success('message');
+	 * The __callStatic allows the creation of notices using the shorter
+	 * syntax: Notices::success('message'); This works for PHP 5.3+
 	 *
 	 * @param	string	$method
 	 * @param	array	$args
@@ -209,4 +210,10 @@ class Notices
 		else
 			return self::add($method, arr::get($args, 0), arr::get($args, 1));
 	}
+
+	final private function __construct()
+	{
+		// Enforce static behavior
+	}
+
 }

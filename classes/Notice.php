@@ -3,7 +3,7 @@
  * Notice
  *
  * @package    Notices
- * @version    v2.0.0b
+ * @version    v2.0.0
  * @author     Jeremy Lindblom <jeremy@synapsestudios.com>
  * @copyright  Copyright (c) 2009 Synapse Studios
  */
