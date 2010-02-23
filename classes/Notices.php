@@ -196,8 +196,8 @@ class Notices
 	}
 
 	/**
-	 * The __callStatic allows the creation of notices using the shorter
-	 * syntax: Notices::success('message'); This works for PHP 5.3+
+	 * The `__callStatic()` allows the creation of notices using the shorter
+	 * syntax: `Notices::success('message');` This works for PHP 5.3+ only
 	 *
 	 * @param	string	$method
 	 * @param	array	$args

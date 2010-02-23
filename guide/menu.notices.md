@@ -1,2 +1,3 @@
 1. **Notices**
-    - [Introduction](notices.introduction)
+    - [Overview](notices.overview)
+    - [API](api/Notices)
