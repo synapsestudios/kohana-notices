@@ -6,5 +6,8 @@
 		<strong class="notice-type"><?php echo ucwords(__($notice->type)) ?>:</strong>
 		<?php echo $notice->message ?>
 	</div>
-	<div style="clear: left;"></div>
+	<div class="notice-close">
+		<?php echo HTML::anchor('notices/remove/'.$notice->hash, HTML::image('media/images/notices/notice-close.png')) ?>
+	</div>
+	<div class="notice-clear"></div>
 </div>

@@ -12,11 +12,19 @@ class Controller_Notices extends Controller
 	
 	public function action_demo()
 	{
-		// Create one notice of each type (4th one is persistent)
+		Notices::clear(NULL, NULL, NULL);
+
+		// Create one notice of each type (the 'tip' is persistent)
+		Notices::add('denied', 'Beeowh!!!');
+		Notices::add('error', 'AAAARRRRRRRRGH!!!');
+		Notices::add('event', 'Beeowh!!!');
+		Notices::add('help', 'Beeowh!!!');
+		Notices::add('info', 'Beeowh!!!');
+		Notices::add('message', 'Beeowh!!!');
 		Notices::add('success', 'Hey y\'all, you just succeeded!');
 		Notices::add('tip', 'Did you know that there is cheese available in the break room?', TRUE);
-		Notices::warning('Be careful! There is something lurking around here. It smells like a herd of cattle but sounds like a grasshopper sneeze. What?... You\'ve never heard a grasshopper sneeze? Man, you are weird. We heard them all the time when we were kids. Great fun, those grasshoppers.');
-		Notices::add('error', 'AAAARRRRRRRRGH!!!');
+		Notices::add('warning', 'Be careful! There is something lurking around here. It smells like a herd of cattle but sounds like a grasshopper sneeze. What?... You\'ve never heard a grasshopper sneeze? Man, you are weird. We heard them all the time when we were kids. Great fun, those grasshoppers.');
+		Notices::add('wizard', 'Beeowh!!!');
 
 		// Echo the number of enqueued notices
 		echo '<p>Number of notices in queue: '.Notices::count().'</p>';
@@ -26,7 +34,7 @@ class Controller_Notices extends Controller
 
 	public function action_demo2()
 	{
-		echo HTML::style('http://localhost/Kohana_v3.0/media/css/notices.css');
+		echo HTML::style('media/css/notices.css');
 		echo '<h1>Notices Demo</h1>';
 		echo '<p>Number of notices in queue: '.Notices::count().'</p>';
 		echo Notices::display();
