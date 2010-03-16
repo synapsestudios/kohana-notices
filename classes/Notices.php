@@ -190,9 +190,46 @@ class Notices
 		{
 			$html .= $notice->render();
 		}
+
 		self::save();
 
 		return $html;
+	}
+
+	/**
+	 * Adds a new Notice and redirects to a URL
+	 *
+	 * @param   string  $type
+	 * @param   string  $message
+	 * @param   string  $url 
+	 */
+	public static function now($type, $message, $url)
+	{
+		self::add($type, $message);
+		Request::instance()->redirect($url);
+	}
+
+	/**
+	 * Creates the proper HTML for inserting a Notice's image.
+	 *
+	 * @param   string  $type
+	 * @return  string
+	 */
+	public static function image($type, array $attributes = array())
+	{
+		$url = 'media/images/notices/'.URL::title($type).'.png';
+		$path = realpath($url);
+
+		if (file_exists($path))
+		{
+			$url = URL::site($url);
+		}
+		else
+		{
+			$url = URL::site('media/images/notices/message.png');
+		}
+
+		return HTML::image($url, $attributes);
 	}
 
 	/**
@@ -211,6 +248,9 @@ class Notices
 			return self::add($method, arr::get($args, 0), arr::get($args, 1));
 	}
 
+	/*
+	 * Enforce static behavior
+	 */
 	final private function __construct()
 	{
 		// Enforce static behavior
