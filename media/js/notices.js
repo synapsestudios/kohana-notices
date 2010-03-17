@@ -1,8 +1,5 @@
 if (typeof jQuery != "undefined"){
 
-	// Prevent conflicts with other js libraries
-	//var $j = jQuery.noConflict();
-
 	// On DOM Ready
 	(function($){$(document).ready(function(){
 

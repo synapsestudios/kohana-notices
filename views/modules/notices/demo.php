@@ -7,6 +7,17 @@
 		<?php echo HTML::style('media/css/notices.css') ?>
 		<?php echo HTML::script('media/js/jquery') ?>
 		<?php echo HTML::script('media/js/notices') ?>
+		<script type="text/javascript">
+			$(function(){
+				$('#add_notice').click(function(){
+					var type = $('#type').val();
+					var message = $('#message').val();
+					var persist = $('#persist').val();
+					persist = (persist == 'TRUE');
+					$('#notices-container').add_notice(type, message, persist);
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<h1>Notices Demo</h1>
@@ -41,16 +52,4 @@
 			</p>
 		</fieldset>
 	</body>
-
-	<script type="text/javascript">
-		$(function(){
-			$('#add_notice').click(function(){
-				var type = $('#type').val();
-				var message = $('#message').val();
-				var persist = $('#persist').val();
-				persist = (persist == 'TRUE');
-				$('#notices-container').add_notice(type, message, persist);
-			});
-		});
-	</script>
 </html>
