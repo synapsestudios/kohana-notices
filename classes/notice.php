@@ -78,7 +78,7 @@ class Notice
 	/**
 	 * Gets the property of a notice
 	 *
-	 * @param	string	$key  xx
+	 * @param	string	$key  Notice property
 	 * @return	mixed
 	 */
 	public function __get($key)
@@ -109,7 +109,7 @@ class Notice
 	/**
 	 * Sets the state to either rendered or not-rendered
 	 *
-	 * @param	boolean	 $state  xx
+	 * @param	boolean	 $state  Whether or not a Notice has been rendered
 	 * @return  void
 	 */
 	public function set_rendered_state($state = FALSE)
@@ -121,20 +121,20 @@ class Notice
 	/**
 	 * Checks if two notices have the same type and message
 	 *
-	 * @param	Notice	 $notice  xx
+	 * @param	Notice	 $notice  The Notice you are comparing
 	 * @return	boolean
 	 */
 	public function similar_to(Notice $notice)
 	{
 		$this_representation = $this->type.$this->message;
 		$notice_representation = $notice->type.$notice->message;
-		return (bool) $this_representation == $notice_representation;
+		return (bool) ($this_representation == $notice_representation);
 	}
 
 	/**
 	 * Returns the 8-character CRC hash identifying a notice
 	 *
-	 * @param	string	$string  xx
+	 * @param	string	$string  The string to be hashed
 	 * @return	string
 	 */
 	protected function crc_hash($string)

@@ -137,7 +137,7 @@ class Notices
 		$results = array();
 		foreach (self::$notices AS $notice)
 		{
-			$type_matches = is_null($type) OR in_array($notice->type, $type);
+			$type_matches = (is_null($type) OR in_array($notice->type, $type));
 			$render_state_matches = is_bool($rendered) ? ($rendered == $notice->is_rendered) : TRUE;
 			$persistence_state_matches = is_bool($persistent) ? ($persistent == $notice->is_persistent) : TRUE;
 

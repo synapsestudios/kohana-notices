@@ -11,7 +11,6 @@
  */
 Class NoticeTest extends PHPUnit_Framework_TestCase
 {
-
 	public function providerSimilarTo()
 	{
 		return array(
@@ -44,6 +43,8 @@ Class NoticeTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test the Notice->similar_to(<Notice>) method
+	 *
 	 * @test
 	 * @dataProvider providerSimilarTo
 	 */
@@ -52,7 +53,7 @@ Class NoticeTest extends PHPUnit_Framework_TestCase
 		$reflected = new ReflectionClass('Notice');
 		$notice_one = $reflected->newInstanceArgs($args_one);
 		$notice_two = $reflected->newInstanceArgs($args_two);
-		
+
 		$this->assertSame($expected, $notice_one->similar_to($notice_two));
 	}
 
