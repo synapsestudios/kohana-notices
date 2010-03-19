@@ -228,13 +228,9 @@ class Notices
 		$url = 'media/images/notices/'.URL::title($type).'.png';
 		$path = realpath($url);
 
-		if (file_exists($path))
+		if ( ! file_exists($path))
 		{
-			$url = URL::site($url);
-		}
-		else
-		{
-			$url = URL::site('media/images/notices/message.png');
+			$url = 'media/images/notices/message.png';
 		}
 
 		return HTML::image($url, $attributes);
