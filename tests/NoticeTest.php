@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the Notices module `Notices` class
+ * Tests the Notice Object
  *
  * @group      Notices
  *
@@ -9,52 +9,51 @@
  * @author     Jeremy Lindblom <jeremy@synapsestudios.com>
  * @copyright  Copyright (c) 2009 Synapse Studios
  */
-Class NoticesTest extends PHPUnit_Framework_TestCase
+Class NoticeTest extends PHPUnit_Framework_TestCase
 {
 
-	protected function setUp()
-	{
-		Notices::init();
-	}
-
-	protected function tearDown()
-	{
-		Session::instance()->destroy();
-	}
-
-	public function providerAdd()
+	public function providerSimilarTo()
 	{
 		return array(
-			array('success', 'You have succeeded!', FALSE, new Notice('success', 'You have succeeded!', FALSE), TRUE),
-			array('error', 'You have errored!', TRUE, new Notice('error', 'You have errored!', TRUE), TRUE),
-			array('success', 'You have errored!', FALSE, new Notice('success', 'You have succeeded!', FALSE), FALSE),
+			array(
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				TRUE,
+			),
+			array(
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => '*success*', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				FALSE,
+			),
+			array(
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => 'success', 'message' => '*You have succeeded!*', 'persist' => FALSE),
+				FALSE,
+			),
+			array(
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => TRUE),
+				TRUE,
+			),
+			array(
+				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => 'error', 'message' => 'You have errored!', 'persist' => FALSE),
+				FALSE,
+			),
 		);
 	}
 
 	/**
 	 * @test
-	 * @dataProvider providerAdd
+	 * @dataProvider providerSimilarTo
 	 */
-	public function testAdd($type, $message, $persist, $expected, $should_pass)
+	public function testSimilarTo($args_one, $args_two, $expected)
 	{
-		$result = Notices::add($type, $message, $persist);
-		$notices = Session::instance()->get('notices', array());
-
-		// Make sure the result is a Notice
-		$this->assertTrue($result instanceOf Notice);
-
-		// Make sure notice was added to the session
-		$this->assertTrue(isset($notices[$result->hash]));
-
-		// Make sure the notice in the session matches the result
-		$this->assertTrue($result->similar_to($notices[$result->hash]));
-
-		echo $result->type.'/'.$expected->type."\n";
-		echo $result->message.'/'.$expected->message."\n";
-		var_dump($result->similar_to($expected), $should_pass);echo "\n";
-
-		// Make sure the expected notice matches the result
-		$this->assertTrue(($result->similar_to($expected) == $should_pass));
+		$reflected = new ReflectionClass('Notice');
+		$notice_one = $reflected->newInstanceArgs($args_one);
+		$notice_two = $reflected->newInstanceArgs($args_two);
+		
+		$this->assertSame($expected, $notice_one->similar_to($notice_two));
 	}
 
 }
