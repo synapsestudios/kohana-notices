@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
- * Notice
+ * Notice - The Notice object encapsulates the type, message, and persistence of
+ * a Notice.
  *
  * @package    Notices
  * @version    v2.0.0
@@ -10,51 +11,41 @@
 class Notice
 {
 	/**
-	 * A unique indentifying hash
-	 *
-	 * @var		string
+	 * @var  string  A unique indentifying hash
 	 */
 	protected $hash = NULL;
 
 	/**
-	 * The notice type used for css styling
-	 *
-	 * @var		string
+	 * @var  string  The notice type used for css styling
 	 */
 	protected $type = 'notice';
 
 	/**
-	 * The content of the notice
-	 *
-	 * @var		string
+	 * @var  string  The content of the notice
 	 */
 	protected $message = '';
 
 	/**
-	 * Whether or not the notice is persistent
-	 * 
-	 * @var		boolean
+	 * @var  boolean  Whether or not the notice is persistent
 	 */
 	protected $is_persistent = FALSE;
 
 	/**
-	 * Whether or not the notice is rendered
-	 * @var		boolean
+	 * @var  boolean  Whether or not the notice is rendered
 	 */
 	protected $is_rendered = FALSE;
 
-	/**
-	 * Timestamp of when the notice was created
-	 * @var		integer
+	/**\
+	 * @var  integer  Timestamp of when the notice was created
 	 */
 	protected $microtime = 0;
 
 	/**
 	 * Creates a notice
 	 *
-	 * @param	string	$type
-	 * @param	string	$message
-	 * @param	boolean	$persistent
+	 * @param	string	 $type
+	 * @param	string	 $message
+	 * @param	boolean	 $persistent
 	 */
 	public function __construct($type, $message, $persistent = FALSE)
 	{
@@ -79,7 +70,7 @@ class Notice
 	public function render()
 	{
 		$this->is_rendered = TRUE;
-		return View::factory('modules/notices/notice')
+		return View::factory('notices/notice')
 			->set('notice', $this)
 			->render();
 	}
@@ -87,7 +78,7 @@ class Notice
 	/**
 	 * Gets the property of a notice
 	 *
-	 * @param	string	$key
+	 * @param	string	$key  xx
 	 * @return	mixed
 	 */
 	public function __get($key)
@@ -107,6 +98,8 @@ class Notice
 
 	/**
 	 * Removes the persitence of a notice
+	 *
+	 * @return  void
 	 */
 	public function remove_persistence()
 	{
@@ -116,7 +109,8 @@ class Notice
 	/**
 	 * Sets the state to either rendered or not-rendered
 	 *
-	 * @param	boolean	$state
+	 * @param	boolean	 $state  xx
+	 * @return  void
 	 */
 	public function set_rendered_state($state = FALSE)
 	{
@@ -127,7 +121,7 @@ class Notice
 	/**
 	 * Checks if two notices have the same type and message
 	 *
-	 * @param	Notice	$notice
+	 * @param	Notice	 $notice  xx
 	 * @return	boolean
 	 */
 	public function similar_to(Notice $notice)
@@ -140,7 +134,7 @@ class Notice
 	/**
 	 * Returns the 8-character CRC hash identifying a notice
 	 *
-	 * @param	string	$string
+	 * @param	string	$string  xx
 	 * @return	string
 	 */
 	protected function crc_hash($string)

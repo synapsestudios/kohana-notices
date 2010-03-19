@@ -1,25 +1,8 @@
 Notices Module
 ==============
 
-A Ko3 Module by **Jeremy Lindblom** of **[Synapse Studios](http://synapsestudios.com)**
-
-Requirements
-------------
-
-The Notices module includes some media files in the `media` folder. These should
-be copied into a `media` folder in the web root so that they are accessible. You
-will need to make sure the following files are included into your template or
-assests system so that notices are available on the pages you desire:
-
-- media/css/notices.css
-- media/js/notices.js
-
-The JavaScript for this module uses
-[jQuery](http://docs.jquery.com/Downloading_jQuery), so please load jQuery
-before attempting to use the Notices module's JavaScript.
-
-**Note:** The JavaScript for Notices is not required, but does enhance the module
-with the ability to add and remove notices on the live page via AJAX.
+A Ko3 Module by [**Jeremy Lindblom**](http://twitter.com/jeremeamia) of
+**[Synapse Studios](http://synapsestudios.com)**
 
 Introduction
 ------------

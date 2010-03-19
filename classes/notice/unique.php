@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
- * Unique Notice
+ * Unique Notice - Extends the Notice object by enforcing uniqueness of a Notice
  *
  * @package    Notices
  * @version    v2.0.0
@@ -12,9 +12,9 @@ class Notice_Unique extends Notice
 	/**
 	 * Creates a notice and ensures the type/message combo is unique
 	 *
-	 * @param	string	$type
-	 * @param	string	$message
-	 * @param	boolean	$persistent
+	 * @param	string	 $type
+	 * @param	string	 $message
+	 * @param	boolean	 $persistent
 	 */
 	public function __construct($type, $message, $persistent = FALSE)
 	{

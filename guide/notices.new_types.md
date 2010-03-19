@@ -1,5 +1,5 @@
-Adding New Notice Types
-=======================
+Notices Module - Adding New Notice Types
+========================================
 
 The Notices module has 10 Notice types that are already styled; however, the
 module can support any arbitrary Notice types. All Notice types without styles
@@ -9,9 +9,9 @@ to your project, you must do the following:
 1. Create a 32x32-pixel png image to graphically represent your new Notice type.
 This should be placed in the `media/js/notices` folder.
 2. Write CSS styles for your Notice type to override the styles of the *message*
-type. You can use the following CSS styles but replace `[[type-name]]` with the name
-of your new Notice type and replace the colors with the ones you would like to
-use.
+type. You can use the following CSS styles but replace `[[type-name]]` with the
+name of your new Notice type and replace the colors with the ones you would like
+to use.
 
 <pre><code>
 div.notice.[[type-name]] strong.notice-type {color: #181818;}

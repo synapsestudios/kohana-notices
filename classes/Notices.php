@@ -1,6 +1,9 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
- * Notices
+ * Notices Module - The purpose of this module is to provide an easy way to send
+ * messages to the user on any page, based on events and decisions in the
+ * application. Most commonly, these message are used to inform users of errors.
+ * The Notices module uses the session to pass messages on to the next page.
  *
  * @package    Notices
  * @version    v2.0.0
@@ -12,9 +15,7 @@ class Notices
 	const UNIQUE_PREFIX = 'unique_';
 
 	/**
-	 * The queue of notices to be rendered and displayed
-	 *
-	 * @var		array
+	 * @var  array  The queue of notices to be rendered and displayed
 	 */
 	protected static $notices = array();
 
@@ -50,11 +51,13 @@ class Notices
 	}
 
 	/**
-	 * Adds a new notice to the notices queue
+	 * Adds a new notice to the notices queue. The notice type corresponds to a
+	 * CSS class used for styling. The message and type are both run through the
+	 * i18n library.
 	 *
-	 * @param	string	$type
-	 * @param	string	$message
-	 * @param	boolean	$persistent
+	 * @param	string	 $type        The type of notice
+	 * @param	string	 $message     The message to be sent to the user
+	 * @param	boolean	 $persistent  If TRUE, the notice must be manually closed via JavaScript. Defaults to FALSE.
 	 * @return	Notice
 	 */
 	public static function add($type, $message, $persistent = FALSE)
@@ -72,12 +75,15 @@ class Notices
 	}
 
 	/**
-	 * Adds a new unique notice to the notices queue
+	 * Adds a new unique notice to the notices queue. The notice type
+	 * corresponds to a CSS class used for styling. The message and type are
+	 * both run through the i18n library. Unique notices must have a unique
+	 * combination of type and message.
 	 *
-	 * @param	string	$type
-	 * @param	string	$message
-	 * @param	boolean	$persistent
-	 * @return	Notice
+	 * @param	string	 $type        The type of notice
+	 * @param	string	 $message     The message to be sent to the user
+	 * @param	boolean	 $persistent  If TRUE, the notice must be manually closed via JavaScript. Defaults to FALSE.
+	 * @return	mixed
 	 */
 	public static function add_unique($type, $message, $persistent = FALSE)
 	{
@@ -103,7 +109,7 @@ class Notices
 	/**
 	 * Retrieves a particular notice by its hash
 	 *
-	 * @param	string	$hash
+	 * @param	string	$hash  A unique hash identifying a Notice
 	 * @return	mixed
 	 */
 	public static function get($hash)
@@ -117,9 +123,9 @@ class Notices
 	/**
 	 * Retrieves a set of notices based on type, rendered state, and persistence
 	 *
-	 * @param	mixed	$type
-	 * @param	boolean	$rendered
-	 * @param	boolean	$persistent
+	 * @param	mixed	 $type        Notice type
+	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
+	 * @param	boolean	 $persistent  Whether or not a Notice is persistent
 	 * @return	array
 	 */
 	public static function get_all($type = NULL, $rendered = NULL, $persistent = NULL)
@@ -148,9 +154,10 @@ class Notices
 	 * Clear (unset) a set of notices (Defaults to all non-persistent,
 	 * rendered notices)
 	 *
-	 * @param	mixed	$type
-	 * @param	boolean	$rendered
-	 * @param	boolean	$persistent
+	 * @param	mixed	 $type        Notice type
+	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
+	 * @param	boolean	 $persistent  Whether or not a Notice is persistent
+	 * @return  void
 	 */
 	public static function clear($type = NULL, $rendered = TRUE, $persistent = FALSE)
 	{
@@ -165,9 +172,9 @@ class Notices
 	/**
 	 * Count a set of notices (Defaults to all non-rendered notices)
 	 *
-	 * @param	mixed	$type
-	 * @param	boolean	$rendered
-	 * @param	boolean	$persistent
+	 * @param	mixed	 $type        Notice type
+	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
+	 * @param	boolean	 $persistent  Whether or not a Notice is persistent
 	 * @return	integer
 	 */
 	public static function count($type = NULL, $rendered = FALSE, $persistent = FALSE)
@@ -178,9 +185,9 @@ class Notices
 	/**
 	 * Display a set of notices (Defaults to all non-rendered notices)
 	 *
-	 * @param	mixed	$type
-	 * @param	boolean	$rendered
-	 * @param	boolean	$persistent
+	 * @param	mixed	 $type        Notice type
+	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
+	 * @param	boolean	 $persistent  Whether or not a Notice is persistent
 	 * @return	string
 	 */
 	public static function display($type = NULL, $rendered = FALSE, $persistent = NULL)
@@ -199,9 +206,10 @@ class Notices
 	/**
 	 * Adds a new Notice and redirects to a URL
 	 *
-	 * @param   string  $type
-	 * @param   string  $message
-	 * @param   string  $url 
+	 * @param   string  $type     The type of notice
+	 * @param	string	$message  The message to be sent to the user
+	 * @param   string  $url      URL to which the user should be redirected
+	 * @return  void
 	 */
 	public static function now($type, $message, $url)
 	{
@@ -212,7 +220,7 @@ class Notices
 	/**
 	 * Creates the proper HTML for inserting a Notice's image.
 	 *
-	 * @param   string  $type
+	 * @param   string  $type Notice type
 	 * @return  string
 	 */
 	public static function image($type, array $attributes = array())
@@ -236,8 +244,8 @@ class Notices
 	 * The `__callStatic()` allows the creation of notices using the shorter
 	 * syntax: `Notices::success('message');` This works for PHP 5.3+ only
 	 *
-	 * @param	string	$method
-	 * @param	array	$args
+	 * @param	string	$method  Method name
+	 * @param	array	$args    method arguments
 	 * @return	mixed
 	 */
 	public static function __callStatic($method, $args)
@@ -256,4 +264,4 @@ class Notices
 		// Enforce static behavior
 	}
 
-}
+} // End Notices
