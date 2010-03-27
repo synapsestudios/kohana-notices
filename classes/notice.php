@@ -56,7 +56,7 @@ class Notice
 			throw new InvalidArgumentException('Message must be a valid string.');
 
 		$this->type = $type;
-		$this->message = __($message); // Use i18n
+		$this->message = $message;
 		$this->is_persistent = (bool) $persistent;
 		$this->microtime = microtime(TRUE);
 		$this->hash = $this->crc_hash($type.$message.$this->microtime); // Unique hash
