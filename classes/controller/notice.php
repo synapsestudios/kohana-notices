@@ -3,7 +3,6 @@
  * Notices Controller
  *
  * @package    Notices
- * @version    v2.0.0b
  * @author     Jeremy Lindblom <jeremy@synapsestudios.com>
  * @copyright  Copyright (c) 2009 Synapse Studios
  */

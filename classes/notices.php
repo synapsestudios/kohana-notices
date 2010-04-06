@@ -6,7 +6,6 @@
  * The Notices module uses the session to pass messages on to the next page.
  *
  * @package    Notices
- * @version    v2.0.0
  * @author     Jeremy Lindblom <jeremy@synapsestudios.com>
  * @copyright  Copyright (c) 2009 Synapse Studios
  */
