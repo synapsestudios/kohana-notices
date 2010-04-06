@@ -1,4 +1,4 @@
-# Module Name
+# Notices
 
 *Notices module for Kohana 3.x*
 
