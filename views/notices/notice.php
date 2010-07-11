@@ -1,4 +1,4 @@
-<div id="notice-<?php echo $notice->hash ?>" class="notice <?php echo $notice->type ?>">
+<div id="notice-<?php echo $notice->hash ?>" class="notice <?php echo $notice->type ?><?php echo $notice->is_persistent ? ' notice-persistent' : '' ?>">
 	<div class="notice-image">
 		<?php echo Notices::image($notice->type, array('width' => 32, 'height' => 32, 'alt' => ucwords(__($notice->type)))) ?>
 	</div>
@@ -11,7 +11,7 @@
 			Route::get('notice-remove')->uri(array('hash' => $notice->hash)),
 			HTML::image(
 				'media/images/notices/notice-close.png',
-				array('width' => 16, 'height' => '16', 'alt' => __('Close'))),
+				array('width' => 16, 'height' => 16, 'alt' => __('Close'))),
 			array('title' => __('Close'))
 		) ?>
 	</div>
