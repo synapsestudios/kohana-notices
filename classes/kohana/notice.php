@@ -52,7 +52,7 @@ class Kohana_Notice
 		if ( ! is_string($type))
 			throw new InvalidArgumentException('Type must be a valid string.');
 
-		if ( ! is_string($message))
+		if ( ! is_string($msg_key))
 			throw new InvalidArgumentException('Message must be a valid string.');
 
 		$this->type = $type;
