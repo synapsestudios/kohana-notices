@@ -59,7 +59,7 @@ class Kohana_Notice
 		$this->message = __(Kohana::message('notices', $msg_key), $values);
 		$this->is_persistent = (bool) $persistent;
 		$this->microtime = microtime(TRUE);
-		$this->hash = $this->crc_hash($type.$message.$this->microtime); // Unique hash
+		$this->hash = $this->crc_hash($type.$this->message.$this->microtime); // Unique hash
 	}
 
 	/**
