@@ -21,19 +21,53 @@ div.notice {
 	zoom: 1; /* Sets the layout so gradients work in IE */
 }
 
-div.notice a img, div.notice img {
-	border: 0;
+/***********************/
+/*  BACKGROUND IMAGES  */
+/***********************/
+div.error div.notice-content {
+	background: url(../images/error.png) no-repeat;
 }
-
-div.notice div.notice-image {
-	float: left;
-	height: 32px;
-	width: 32px;
-	position: relative;
+div.info div.notice-content {
+	background: url(../images/info.png) no-repeat;
+}
+div.tip div.notice-content {
+	background: url(../images/tip.png) no-repeat;
+}
+div.denied div.notice-content {
+	background: url(../images/denied.png) no-repeat;
+}
+div.event div.notice-content {
+	background: url(../images/event.png) no-repeat;
+}
+div.help div.notice-content {
+	background: url(../images/help.png) no-repeat;
+}
+div.message div.notice-content {
+	background: url(../images/message.png) no-repeat;
+}
+div.success div.notice-content {
+	background: url(../images/success.png) no-repeat;
+}
+div.warning div.notice-content {
+	background: url(../images/warning.png) no-repeat;
+}
+div.wizard div.notice-content {
+	background: url(../images/wizard.png) no-repeat;
+}
+div.notice div.notice-close {
+	height: 16px; width: 16px;
+	/* Will cut off the text after the close button is added */
+	overflow: hidden;
+}
+div.notice div.notice-close a {
+	background: url(../images/notice-close.png) no-repeat;
+	/* Shove the text below the div */
+	padding-left: 20px;
 }
 
 div.notice div.notice-content {
-	margin: 4px 26px 0 42px;
+	margin: 4px 26px 0 0;
+	padding: 5px 0 5px 37px;
 }
 
 div.notice strong.notice-type {
