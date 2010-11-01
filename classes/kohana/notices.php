@@ -54,14 +54,15 @@ class Kohana_Notices
 	 * CSS class used for styling.
 	 *
 	 * @param	string	 $type        The type of notice
-	 * @param	string	 $message     The message to be sent to the user
+	 * @param	string	 $msg_key     The the key of the message to be sent to the user
+	 * @param   array    $values      Values to replace the ones in the message using `__()`
 	 * @param	boolean	 $persistent  If TRUE, the notice must be manually closed via JavaScript. Defaults to FALSE.
 	 * @return	Notice
 	 */
-	public static function add($type, $message, $persistent = FALSE)
+	public static function add($type, $msg_key, array $values = NULL, $persistent = FALSE)
 	{
 		// Create a new message
-		$notice = new Notice($type, $message, $persistent);
+		$notice = new Notice($type, $msg_key, $values, $persistent);
 
 		// The hash acts as a unique identifier.
 		Notices::$notices[$notice->hash] = $notice;
@@ -78,16 +79,17 @@ class Kohana_Notices
 	 * have a unique combination of type and message.
 	 *
 	 * @param	string	 $type        The type of notice
-	 * @param	string	 $message     The message to be sent to the user
+	 * @param	string	 $msg_key     The the key of the message to be sent to the user
+	 * @param   array    $values      Values to replace the ones in the message using `__()`
 	 * @param	boolean	 $persistent  If TRUE, the notice must be manually closed via JavaScript. Defaults to FALSE.
 	 * @return	mixed
 	 */
-	public static function add_unique($type, $message, $persistent = FALSE)
+	public static function add_unique($type, $msg_key, array $values = NULL, $persistent = FALSE)
 	{
 		try
 		{
 			// Create a new message
-			$notice = new Notice_Unique($type, $message, $persistent);
+			$notice = new Notice_Unique($type, $msg_key, $values, $persistent);
 
 			// The hash acts as a unique identifier. All notices must have a unique type/message combination.
 			Notices::$notices[$notice->hash] = $notice;
@@ -245,9 +247,9 @@ class Kohana_Notices
 	public static function __callStatic($method, $args)
 	{
 		if (strpos($method, Notices::UNIQUE_PREFIX) === 0)
-			return Notices::add_unique(substr($method, strlen(Notices::UNIQUE_PREFIX)), Arr::get($args, 0), Arr::get($args, 1));
+			return Notices::add_unique(substr($method, strlen(Notices::UNIQUE_PREFIX)), Arr::get($args, 0), Arr::get($args, 1), Arr::get($args, 2));
 		else
-			return Notices::add($method, Arr::get($args, 0), Arr::get($args, 1));
+			return Notices::add($method, Arr::get($args, 0), Arr::get($args, 1), Arr::get($args, 2));
 	}
 
 	/*

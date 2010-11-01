@@ -43,22 +43,23 @@ class Kohana_Notice
 	 * Creates a notice
 	 *
 	 * @param	string	 $type
-	 * @param	string	 $message
+	 * @param	string	 $msg_key
+	 * @param	array	 $values
 	 * @param	boolean	 $persistent
 	 */
-	public function __construct($type, $message, $persistent = FALSE)
+	public function __construct($type, $msg_key, array $values = NULL, $persistent = FALSE)
 	{
 		if ( ! is_string($type))
 			throw new InvalidArgumentException('Type must be a valid string.');
 
-		if ( ! is_string($message))
+		if ( ! is_string($msg_key))
 			throw new InvalidArgumentException('Message must be a valid string.');
 
 		$this->type = $type;
-		$this->message = $message;
+		$this->message = __(Kohana::message('notices', $msg_key, $msg_key), $values);
 		$this->is_persistent = (bool) $persistent;
 		$this->microtime = microtime(TRUE);
-		$this->hash = $this->crc_hash($type.$message.$this->microtime); // Unique hash
+		$this->hash = $this->crc_hash($type.$this->message.$this->microtime); // Unique hash
 	}
 
 	/**

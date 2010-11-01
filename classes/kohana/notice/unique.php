@@ -12,12 +12,13 @@ class Kohana_Notice_Unique extends Notice
 	 * Creates a notice and ensures the type/message combo is unique
 	 *
 	 * @param	string	 $type
-	 * @param	string	 $message
+	 * @param	string	 $msg_key
+	 * @param	array	 $values
 	 * @param	boolean	 $persistent
 	 */
-	public function __construct($type, $message, $persistent = FALSE)
+	public function __construct($type, $msg_key, array $values = NULL, $persistent = FALSE)
 	{
-		parent::__construct($type, $message, $persistent);
+		parent::__construct($type, $msg_key, $values, $persistent);
 
 		foreach (Notices::get_all($this->type) as $notice)
 		{
