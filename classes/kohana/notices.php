@@ -217,26 +217,6 @@ class Kohana_Notices
 	}
 
 	/**
-	 * Creates the proper HTML for inserting a Notice's image.
-	 *
-	 * @param   string  $type Notice type
-	 * @return  string
-	 */
-	public static function image($type, array $attributes = array())
-	{
-		$img_path = Kohana::config('notices.image_path');
-		$uri = $img_path.'notices/'.URL::title($type).'.png';
-		$path = realpath($uri);
-
-		if ( ! file_exists($path))
-		{
-			$uri = $img_path.'notices/message.png';
-		}
-
-		return HTML::image($uri, $attributes);
-	}
-
-	/**
 	 * The `__callStatic()` allows the creation of notices using the shorter
 	 * syntax: `Notices::success('message');` This works for PHP 5.3+ only
 	 *
