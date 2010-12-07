@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 /**
- * Notice - The Notice object encapsulates the type, message, and persistence of
- * a Notice.
+ * Notice - The Notice object encapsulates the type, and message of a Notice.
  *
  * @package    Notices
  * @author     Jeremy Lindblom <jeremy@synapsestudios.com>
@@ -25,11 +24,6 @@ class Kohana_Notice
 	protected $message = '';
 
 	/**
-	 * @var  boolean  Whether or not the notice is persistent
-	 */
-	protected $is_persistent = FALSE;
-
-	/**
 	 * @var  boolean  Whether or not the notice is rendered
 	 */
 	protected $is_rendered = FALSE;
@@ -45,9 +39,8 @@ class Kohana_Notice
 	 * @param	string	 $type
 	 * @param	string	 $msg_key
 	 * @param	array	 $values
-	 * @param	boolean	 $persistent
 	 */
-	public function __construct($type, $msg_key, array $values = NULL, $persistent = FALSE)
+	public function __construct($type, $msg_key, array $values = NULL)
 	{
 		if ( ! is_string($type))
 			throw new InvalidArgumentException('Type must be a valid string.');
@@ -57,7 +50,6 @@ class Kohana_Notice
 
 		$this->type = $type;
 		$this->message = __(Kohana::message('notices', $msg_key, $msg_key), $values);
-		$this->is_persistent = (bool) $persistent;
 		$this->microtime = microtime(TRUE);
 		$this->hash = $this->crc_hash($type.$this->message.$this->microtime); // Unique hash
 	}
@@ -94,16 +86,6 @@ class Kohana_Notice
 	public function __toString()
 	{
 		return $this->render();
-	}
-
-	/**
-	 * Removes the persitence of a notice
-	 *
-	 * @return  void
-	 */
-	public function remove_persistence()
-	{
-		$this->is_persistent = FALSE;
 	}
 
 	/**
