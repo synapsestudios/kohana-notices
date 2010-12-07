@@ -4,7 +4,7 @@
 
 - **Module Version:** 2.1.0
 - **Module URL:** <http://github.com/synapsestudios/kohana-notices>
-- **Compatible Kohana Version(s):** 3.0
+- **Compatible Kohana Version(s):** 3.0.x
 
 ## Description
 
