@@ -9,17 +9,20 @@ if (typeof jQuery != "undefined"){
 
 		// Close a notice if the "X" is clicked
 		$('div.notice-close a').live("click", function(){
-			$(this).closest("div.notice").hide("fast");
+			var notice = $(this).closest("div.notice");
+			var persistent = notice.hasClass('notice-persistent');
+			notice.hide("fast");
 
-			var ajax_url = $(this).attr("href");
-
-			$.ajax({
-				url: ajax_url,
-				cache: false,
-				dataType: 'json',
-				success: $.noop(),
-				error: $.noop()
-			});
+			if (persistent){
+				var ajax_url = $(this).attr("href");
+				$.ajax({
+					url: ajax_url,
+					cache: false,
+					dataType: 'json',
+					success: $.noop(),
+					error: $.noop()
+				});
+			}
 
 			return false;
 		});
