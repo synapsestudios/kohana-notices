@@ -24,27 +24,6 @@ class Kohana_Notices
 	{
 		// Fetch notices from Session
 		Notices::$notices = Session::instance()->get('notices', array());
-
-		// Clear all the non-persistent notices that have already been rendered
-		Notices::clear();
-
-		// Set all the current notices to not-rendered
-		foreach (Notices::$notices as $notice)
-		{
-			$notice->set_rendered_state(FALSE);
-		}
-
-		// Save the notices!
-		Notices::save();
-	}
-
-	/**
-	 * Saves the current notices to the session
-	 */
-	public static function save()
-	{
-		// Put the notices array into the Session
-		Session::instance()->set('notices', Notices::$notices);
 	}
 
 	/**
@@ -52,114 +31,63 @@ class Kohana_Notices
 	 * CSS class used for styling.
 	 *
 	 * @param	string	 $type        The type of notice
-	 * @param	string	 $msg_key     The the key of the message to be sent to the user
+	 * @param	string	 $key         The the key of the message to be sent to the user
 	 * @param   array    $values      Values to replace the ones in the message using `__()`
 	 * @return	Notice
 	 */
-	public static function add($type, $msg_key, array $values = NULL)
+	public static function add($type, $key, array $values = NULL)
 	{
-		// Create a new message
-		$notice = new Notice($type, $msg_key, $values);
-
 		// The hash acts as a unique identifier.
-		Notices::$notices[$notice->hash] = $notice;
+		Notices::$notices[$type] = array
+		(
+			'type'   => $type,
+			'key'    => $key,
+			'values' => $values,
+		);
 
-		// Save the notices!
-		Notices::save();
-
-		return $notice;
-	}
-
-	/**
-	 * Retrieves a particular notice by its hash
-	 *
-	 * @param	string	$hash  A unique hash identifying a Notice
-	 * @return	mixed
-	 */
-	public static function get($hash)
-	{
-		if (is_string($hash) AND isset(Notices::$notices[$hash]))
-			return Notices::$notices[$hash];
-		else
-			return NULL;
+		Session::instance()->set('notices', Notices::$notices);
 	}
 
 	/**
 	 * Retrieves a set of notices based on type, and rendered state
 	 *
-	 * @param	mixed	 $type        Notice type
-	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
+	 * @param	mixed	 $types       Notice types
+	 * @param	boolean	 $once        Whether or not to remove the notice
 	 * @return	array
 	 */
-	public static function get_all($type = NULL, $rendered = NULL)
+	public static function get($types = NULL, $once = TRUE)
 	{
-		// Prepare the type argument
-		$type = (is_string($type) OR is_array($type)) ? (array) $type : NULL;
-
-		// Find notices that match the arguments
-		$results = array();
-		foreach (Notices::$notices AS $notice)
+		if (is_string($types))
 		{
-			$type_matches = (is_null($type) OR in_array($notice->type, $type));
-			$render_state_matches = is_bool($rendered) ? ($rendered == $notice->is_rendered) : TRUE;
+			$results = Arr::get(Notices::$notices, $types);
 
-			if ($type_matches AND $render_state_matches)
+			if ($once)
+				unset(Notices::$notices[$types]);
+		}
+		elseif (is_array($types))
+		{
+			$results = array();
+
+			foreach ($types as $type)
 			{
-				$results[] = $notice;
+				$results[$type] = Arr::get(Notices::$notices, $type);
+
+				if ($once)
+					unset(Notices::$notices[$type]);
 			}
 		}
+		else
+		{
+			// Return all of them
+			$results = Notices::$notices;
+
+			if ($once)
+				Notices::$notices = array();
+		}
+
+		Session::instance()->set('notices', Notices::$notices);
 
 		return $results;
-	}
-
-	/**
-	 * Clear (unset) a set of notices
-	 *
-	 * @param	mixed	 $type        Notice type
-	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
-	 * @return  void
-	 */
-	public static function clear($type = NULL, $rendered = TRUE)
-	{
-		foreach (Notices::get_all($type, $rendered) as $notice)
-		{
-			unset(Notices::$notices[$notice->hash]);
-		}
-
-		Notices::save();
-	}
-
-	/**
-	 * Count a set of notices (Defaults to all non-rendered notices)
-	 *
-	 * @param	mixed	 $type        Notice type
-	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
-	 * @return	integer
-	 */
-	public static function count($type = NULL, $rendered = FALSE)
-	{
-		return count(Notices::get_all($type, $rendered));
-	}
-
-	/**
-	 * Display a set of notices (Defaults to all non-rendered notices)
-	 *
-	 * @param	mixed	 $type        Notice type
-	 * @param	boolean	 $rendered    Whether or not a Notice has been rendered
-	 * @param	boolean	 $persistent  Whether or not a Notice is persistent
-	 * @return	string
-	 */
-	public static function display($type = NULL, $rendered = FALSE, $persistent = NULL)
-	{
-		$html = '';
-		foreach (Notices::get_all($type, $rendered, $persistent) as $notice)
-		{
-			$html .= $notice->render();
-		}
-
-		Notices::save();
-
-		return $html;
 	}
 
 	/**
