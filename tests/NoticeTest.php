@@ -15,28 +15,28 @@ Class NoticeTest extends PHPUnit_Framework_TestCase
 	{
 		return array(
 			array(
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
 				TRUE,
 			),
 			array(
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
-				array('type' => '*success*', 'message' => 'You have succeeded!', 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
+				array('type' => '*success*', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
 				FALSE,
 			),
 			array(
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
-				array('type' => 'success', 'message' => '*You have succeeded!*', 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
+				array('type' => 'success', 'message' => '*You have succeeded!*', 'values' => array(), 'persist' => FALSE),
 				FALSE,
 			),
 			array(
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => TRUE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => TRUE),
 				TRUE,
 			),
 			array(
-				array('type' => 'success', 'message' => 'You have succeeded!', 'persist' => FALSE),
-				array('type' => 'error', 'message' => 'You have errored!', 'persist' => FALSE),
+				array('type' => 'success', 'message' => 'You have succeeded!', 'values' => array(), 'persist' => FALSE),
+				array('type' => 'error', 'message' => 'You have errored!', 'values' => array(), 'persist' => FALSE),
 				FALSE,
 			),
 		);
