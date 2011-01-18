@@ -25,10 +25,10 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 	public function providerAdd()
 	{
 		return array(
-			array('success', 'You have succeeded!', FALSE),
-			array('error', 'You have errored!', FALSE),
-			array('warning', 'You have been warned!', TRUE),
-			array('info', 'You have been informed!', FALSE),
+			array('success', 'You have succeeded!', array(), FALSE),
+			array('error', 'You have errored!', array(), FALSE),
+			array('warning', 'You have been warned!', array(), TRUE),
+			array('info', 'You have been informed!', array(), FALSE),
 		);
 	}
 
@@ -38,10 +38,10 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 	 * @test
 	 * @dataProvider providerAdd
 	 */
-	public function testAdd($type, $message, $persist)
+	public function testAdd($type, $message, $values, $persist)
 	{
 		// Create a new Notice
-		$result = Notices::add($type, $message, $persist);
+		$result = Notices::add($type, $message, $values, $persist);
 
 		// Retrieve the Notices queue
 		$notices = Session::instance()->get('notices', array());
@@ -59,11 +59,11 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 	public function providerAddUnique()
 	{
 		return array(
-			array('success', 'You have succeeded!!!', FALSE, TRUE),
-			array('error', 'You have succeeded!', FALSE, TRUE),
-			array('success', 'You have succeeded!', FALSE, FALSE),
-			array('success', 'You have succeeded!', TRUE, FALSE),
-			array('error', 'You have errored!', FALSE, TRUE),
+			array('success', 'You have succeeded!!!', array(), FALSE, TRUE),
+			array('error', 'You have succeeded!', array(), FALSE, TRUE),
+			array('success', 'You have succeeded!', array(), FALSE, FALSE),
+			array('success', 'You have succeeded!', array(), TRUE, FALSE),
+			array('error', 'You have errored!', array(), FALSE, TRUE),
 		);
 	}
 
@@ -73,13 +73,13 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 	 * @test
 	 * @dataProvider providerAddUnique
 	 */
-	public function testAddUnique($type, $message, $persist, $allowed)
+	public function testAddUnique($type, $message, $values, $persist, $allowed)
 	{
 		// Put an initial Notice in the Notices queue
-		$original = Notices::add('success', 'You have succeeded!', FALSE);
+		$original = Notices::add('success', 'You have succeeded!', array(), FALSE);
 
 		// Try to create a unique Notice
-		$result = Notices::add_unique($type, $message, $persist);
+		$result = Notices::add_unique($type, $message, $values, $persist);
 
 		// Retrieve the Notices queue
 		$notices = Session::instance()->get('notices', array());
