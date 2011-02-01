@@ -12,17 +12,21 @@
 Class NoticesTest extends PHPUnit_Framework_TestCase
 {
 
+	// @codingStandardsIgnoreStart
 	protected function setUp()
+	// @codingStandardsIgnoreEnd
 	{
 		Notices::init();
 	}
 
+	// @codingStandardsIgnoreStart
 	protected function tearDown()
+	// @codingStandardsIgnoreEnd
 	{
 		Session::instance()->destroy();
 	}
 
-	public function providerAdd()
+	public function provider_add()
 	{
 		return array(
 			array('success', 'You have succeeded!', array(), FALSE),
@@ -36,9 +40,9 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 	 * Test the Notices::add(...) method
 	 *
 	 * @test
-	 * @dataProvider providerAdd
+	 * @dataProvider provider_add
 	 */
-	public function testAdd($type, $message, $values, $persist)
+	public function test_add($type, $message, $values, $persist)
 	{
 		// Create a new Notice
 		$result = Notices::add($type, $message, $values, $persist);
@@ -56,7 +60,7 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($result->similar_to($notices[$result->hash]));
 	}
 
-	public function providerAddUnique()
+	public function provider_add_unique()
 	{
 		return array(
 			array('success', 'You have succeeded!!!', array(), FALSE, TRUE),
@@ -71,9 +75,9 @@ Class NoticesTest extends PHPUnit_Framework_TestCase
 	 * Test the Notices::add_unique(...) method
 	 *
 	 * @test
-	 * @dataProvider providerAddUnique
+	 * @dataProvider provider_add_unique
 	 */
-	public function testAddUnique($type, $message, $values, $persist, $allowed)
+	public function test_add_unique($type, $message, $values, $persist, $allowed)
 	{
 		// Put an initial Notice in the Notices queue
 		$original = Notices::add('success', 'You have succeeded!', array(), FALSE);
