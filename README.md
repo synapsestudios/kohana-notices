@@ -2,9 +2,9 @@
 
 *Notices module for Kohana 3.x*
 
-- **Module Version:** 2.1.0
+- **Module Version:** 3.0.x
 - **Module URL:** <http://github.com/synapsestudios/kohana-notices>
-- **Compatible Kohana Version(s):** 3.0.x
+- **Compatible Kohana Version(s):** 3.1.x
 
 ## Description
 
