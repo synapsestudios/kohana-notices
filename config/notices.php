@@ -3,7 +3,7 @@
 return array
 (
 
-	// Patch to the images
+	// Path to the images
 	'image_path' => 'media/images/',
 
 );
