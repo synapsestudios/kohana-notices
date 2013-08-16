@@ -17,16 +17,6 @@ class Kohana_Notices
 	protected static $notices = array();
 
 	/**
-	 * Retrieves the notices form the session and stores them in the static
-	 * notices array. It also clears notices that have already been rendered.
-	 */
-	public static function init()
-	{
-		// Fetch notices from Session
-		Notices::$notices = Session::instance()->get('notices', array());
-	}
-
-	/**
 	 * Adds a new notice to the notices queue. The notice type corresponds to a
 	 * CSS class used for styling.
 	 *
@@ -37,6 +27,9 @@ class Kohana_Notices
 	 */
 	public static function add($type, $key, array $values = NULL)
 	{
+		// Fetch notices from Session
+		Notices::$notices = Session::instance()->get('notices', array());
+
 		// The hash acts as a unique identifier.
 		Notices::$notices[$type] = array
 		(
@@ -57,6 +50,9 @@ class Kohana_Notices
 	 */
 	public static function get($types = NULL, $once = TRUE)
 	{
+		// Fetch notices from Session
+		Notices::$notices = Session::instance()->get('notices', array());
+
 		if (is_string($types))
 		{
 			$results = Arr::get(Notices::$notices, $types);
